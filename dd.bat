@@ -5,7 +5,7 @@ if "%1"=="setup" goto install
 if "%1"=="list" goto openlist
 echo Loading your request..
 curl -s https://github.com/DiscordDigital/%1 | findstr "404" 2> nul > nul
-if "%errorlevel%"=="0" goto repo404
+if "%errorlevel%"=="0" goto repoerror
 
 for /f %%i in ('curl -s https://raw.githubusercontent.com/DiscordDigital/%1/master/.ddpm') do set target=%%i
 echo %target% | findstr "404" > nul
@@ -39,7 +39,7 @@ if "%elevel%"=="0" echo [OK] Uninstalled.
 if not "%elevel%"=="0" echo [ERROR] Can't remove "%systemroot%\dd.bat" for some reason.
 goto :eof
 
-:repo404
+:repoerror
 echo [ERROR] Repository "DiscordDigital/%1" not found.
 echo.
 goto :eof
