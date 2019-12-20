@@ -12,7 +12,12 @@ echo %target% | findstr "404" > nul
 if "%errorlevel%"=="0" goto compatibility
 curl -s https://raw.githubusercontent.com/DiscordDigital/%1/master/%target% > %target%
 echo [OK] Created %target% in %cd%
+goto :eof
 
+
+:repoerror
+echo [ERROR] Repository "DiscordDigital/%1" not found.
+echo.
 goto :eof
 
 :openlist
@@ -37,11 +42,6 @@ del /Q "%systemroot%\dd.bat" > nul
 set elevel=%errorlevel%
 if "%elevel%"=="0" echo [OK] Uninstalled.
 if not "%elevel%"=="0" echo [ERROR] Can't remove "%systemroot%\dd.bat" for some reason.
-goto :eof
-
-:repoerror
-echo [ERROR] Repository "DiscordDigital/%1" not found.
-echo.
 goto :eof
 
 :permission
